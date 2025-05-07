@@ -2,6 +2,8 @@ import 'package:crud/Style/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../RestAPI/RestClient.dart';
+
 class ProductCreateScreen extends StatefulWidget {
   @override
   State<ProductCreateScreen> createState() => _ProductCreateScreenState();
@@ -26,7 +28,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
 //--------------------------Form Submit-----------------------//
 
-  FormOnSubmit() {
+  FormOnSubmit() async{
     if (FormValues['Img']!.length == 0) {
       ErrorToast('Image Link Required !');
     } else if (FormValues['ProductName']!.length == 0) {
@@ -40,7 +42,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
     } else if (FormValues['Qty']!.length == 0) {
       ErrorToast('Quantity is Required !');
     } else {
-      // Data Rest API.....Post
+      await ProductCreateRequest(FormValues);
     }
   }
 
