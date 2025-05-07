@@ -8,17 +8,43 @@ class ProductCreateScreen extends StatefulWidget {
 }
 
 class _ProductCreateScreenState extends State<ProductCreateScreen> {
-
 //---------Product info collection model as like RestAPI----//
-  Map<String,String> FormValues={"ProductName": "", "ProductCode": "", "Img": "", "Qty": "", "UnitPrice": "", "TotalPrice": ""};
-  InputOnChange(MapKey, Textvalue){
+  Map<String, String> FormValues = {
+    "ProductName": "",
+    "ProductCode": "",
+    "Img": "",
+    "Qty": "",
+    "UnitPrice": "",
+    "TotalPrice": ""
+  };
+  InputOnChange(MapKey, Textvalue) {
     setState(() {
-      FormValues.update(MapKey, (value)=> Textvalue);
+      FormValues.update(MapKey, (value) => Textvalue);
     });
-
   }
 //---------Product info collection model as like RestAPI----//
 
+//--------------------------Form Submit-----------------------//
+
+  FormOnSubmit() {
+    if (FormValues['Img']!.length == 0) {
+      ErrorToast('Image Link Required !');
+    } else if (FormValues['ProductName']!.length == 0) {
+      ErrorToast('Product Name Required !');
+    } else if (FormValues['ProductCode']!.length == 0) {
+      ErrorToast('Product Code Required !');
+    } else if (FormValues['UnitPrice']!.length == 0) {
+      ErrorToast('Unit Price Required !');
+    } else if (FormValues['TotalPrice']!.length == 0) {
+      ErrorToast('Total Price Required !');
+    } else if (FormValues['Qty']!.length == 0) {
+      ErrorToast('Quantity is Required !');
+    } else {
+      // Data Rest API.....Post
+    }
+  }
+
+//--------------------------Form Submit-----------------------//
 
   @override
   Widget build(BuildContext context) {
@@ -34,55 +60,43 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-
-
                   TextFormField(
                     onChanged: (Textvalue) {
-                      InputOnChange("ProductName",Textvalue);
+                      InputOnChange("ProductName", Textvalue);
                     },
                     decoration: AppInputDecoration('Product Name'),
                   ),
-
-
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue) {
-                      InputOnChange("ProductCode",Textvalue);
+                      InputOnChange("ProductCode", Textvalue);
                     },
                     decoration: AppInputDecoration('Product Code'),
                   ),
-
-
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue) {
-                      InputOnChange("Img",Textvalue);
+                      InputOnChange("Img", Textvalue);
                     },
                     decoration: AppInputDecoration('Product Image'),
                   ),
-
-
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue) {
-                      InputOnChange("UnitPrice",Textvalue);
+                      InputOnChange("UnitPrice", Textvalue);
                     },
                     decoration: AppInputDecoration('Unit Price'),
                   ),
-
-
                   SizedBox(height: 20),
                   TextFormField(
                     onChanged: (Textvalue) {
-                      InputOnChange("TotalPrice",Textvalue);
+                      InputOnChange("TotalPrice", Textvalue);
                     },
                     decoration: AppInputDecoration('Total Price'),
                   ),
-
-
                   SizedBox(height: 20),
                   AppDropDownStyle(DropdownButton(
-                    value: FormValues ['Qty'],
+                    value: FormValues['Qty'],
                     items: [
                       DropdownMenuItem(
                         child: Text('Select Quantity'),
@@ -106,8 +120,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                       ),
                     ],
                     onChanged: (Textvalue) {
-                      InputOnChange("Qty",Textvalue);
-
+                      InputOnChange("Qty", Textvalue);
                     },
                     underline: Container(),
                     isExpanded: true,
@@ -116,7 +129,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                   Container(
                       child: ElevatedButton(
                           style: AppButtonStyle(),
-                          onPressed: () {},
+                          onPressed: () {
+                            FormOnSubmit();
+                          },
                           child: SuccessButtonChild('Submit')))
                 ],
               ),
